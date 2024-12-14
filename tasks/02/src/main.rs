@@ -25,5 +25,8 @@ fn main() {
 fn count_number(vec: &Vec<usize>, target: usize) -> usize {
     // NOTE: to self -> iter() returns iterator of references
     // and filter() works with references to references
+
+    // iter returns references - use when you need to borrow
+    // into_iter moves the T - use when you need to modify the values
     vec.iter().filter(|x| **x == target).count()
 }
