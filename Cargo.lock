@@ -86,3 +86,11 @@ dependencies = [
  "common",
  "regex",
 ]
+
+[[package]]
+name = "t06"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "regex",
+]
