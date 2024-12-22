@@ -1,0 +1,9 @@
+[package]
+name = "t12"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+common = { path = "../../common" }
+once_cell = "1.18.0"
+t11 = { path = "../11" }

@@ -139,3 +139,12 @@ dependencies = [
  "common",
  "once_cell",
 ]
+
+[[package]]
+name = "t12"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "once_cell",
+ "t11",
+]
