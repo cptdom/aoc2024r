@@ -1,9 +1,9 @@
-
 static _INPUT_PATH: &str = "tasks/13/input.txt";
 
+
 fn main() {
-    let input_lines = t13::parse_input(_INPUT_PATH);
-    let sum = get_valid_sum(input_lines);
+    let parsed_input = t13::parse_input(_INPUT_PATH);
+    let sum = get_valid_sum(parsed_input);
     println!("The sum is {}", sum);
 }
 
@@ -39,5 +39,14 @@ fn evaluate(target: usize, numbers: &[usize], current_value: usize) -> bool {
         return true;
     }
 
+    // try concatenation
+    if evaluate(target, remaining, concatenate(current_value, next)) {
+        return true
+    }
+
     false
+}
+
+fn concatenate(num1: usize, num2: usize) -> usize {
+    format!("{num1}{num2}").parse::<usize>().unwrap()
 }
