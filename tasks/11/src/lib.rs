@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use once_cell::sync::Lazy;
 
 
-#[derive(Clone,Debug)]
+#[derive(Clone,Debug, PartialEq, Eq, Hash)]
 pub enum Direction {
     Up,
     Down,
