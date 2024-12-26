@@ -1,0 +1,8 @@
+[package]
+name = "t16"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+t11 = { path = "../11" }
+t15 = { path = "../15" }
