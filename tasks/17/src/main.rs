@@ -1,21 +1,10 @@
-use std::io::{BufRead, BufReader};
-use std::fs::File;
 
 static _INPUT_PATH: &str = "tasks/17/input.txt";
 
 fn main() {
     // load file
     // single vector of usize
-    let input: Vec<usize> = BufReader::new(File::open(_INPUT_PATH).unwrap())
-        .lines()
-        .flat_map(|line| {
-            line.unwrap()
-                .chars()
-                .filter_map(|c| c.to_digit(10))
-                .map(|d| d as usize)
-                .collect::<Vec<usize>>()
-        })
-        .collect();
+    let input: Vec<usize> = t17::get_input(_INPUT_PATH);
 
     // can be done in one iteration while going from both directions
     // and having 2 queues, one for whitespace indices, one for odd members
@@ -23,23 +12,20 @@ fn main() {
 
     // step 1 - transform input into human-readable disk space
 
-    let mut transformed_input: Vec<isize> = vec![];
-    let mut file_id = 0;
-
-    for i in 0..input.len() {
-        let length = input[i];
-        let to_push = if i % 2 == 0 { file_id } else { -1 }; // file_id for files, -1 for spaces
-        for _ in 0..length {
-            transformed_input.push(to_push);
-        }
-        if i % 2 == 0 {
-            file_id += 1;
-        }
-    }
-
+    let mut transformed_input = t17::transform_input(input);
 
     // step 2 - reposition accordingly
-    // simple approach - 2 pointers
+
+    transformed_input = defragment(transformed_input);
+
+    let checksum: usize = t17::calculate_checksum(&transformed_input);
+
+    println!("CHECKSUM {checksum}");
+
+}
+
+// simple approach - 2 pointers
+fn defragment(mut transformed_input: Vec<isize>) -> Vec<isize> {
     let mut left = 0;
     let mut right = transformed_input.len()-1;
 
@@ -60,11 +46,5 @@ fn main() {
             }
         }
     }
-    let checksum: usize = transformed_input.iter()
-        .filter(|&&a| a >= 0)
-        .enumerate()
-        .map(|(i, &n)| n as usize * i).sum();
-
-    println!("CHECKSUM {checksum}");
-
+    transformed_input.to_vec()
 }
