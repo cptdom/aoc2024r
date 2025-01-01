@@ -200,3 +200,10 @@ dependencies = [
 [[package]]
 name = "t21"
 version = "0.1.0"
+
+[[package]]
+name = "t22"
+version = "0.1.0"
+dependencies = [
+ "t21",
+]
