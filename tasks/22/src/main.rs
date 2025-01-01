@@ -28,17 +28,18 @@ fn expand<const STEPS: usize>(nums: HashMap<usize, usize>) -> HashMap<usize, usi
         let mut transformed_nums: HashMap<usize, usize> = HashMap::new();
 
         for (num, cnt) in curr_nums.iter() {
+
             match num {
                 0 => {
                     insert(&mut transformed_nums, 1, *cnt);
                 },
-                _ if format!("{num}").len() % 2 == 0 => {
-                    let num_str = format!("{num}");
-                    let half_ix = num_str.len() / 2;
-                    let new_left = num_str[0..half_ix].parse::<usize>().unwrap();
-                    let new_right = num_str[half_ix..].parse::<usize>().unwrap();
-                    insert(&mut transformed_nums, new_left, *cnt);
-                    insert(&mut transformed_nums, new_right, *cnt);
+                // (num.ilog10() + 1) -> count of digits,
+                // e.g. 25 -> log(10)25 =~ 1.4 -> 2.4 -> 2
+                // e.g. 125 e.g. 25 -> log(10)25 =~ 2.1 -> 3.1 -> 3
+                _ if (num.ilog10() + 1) % 2 == 0 => {
+                    let scale = 10_usize.pow((num.ilog10() + 1) / 2); // e.g. 25 -> 10 ^ 1
+                    insert(&mut transformed_nums, *num / scale, *cnt); // e.g. 25 -> 10 -> 2.5 -> 2
+                    insert(&mut transformed_nums, *num % scale, *cnt); // e.g. 25 -> 10 -> 5 -> 5
                 },
                 _ => {
                     // hackity hack - "<< 3" = "* 8"
