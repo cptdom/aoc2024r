@@ -3,3 +3,4 @@
 - to refresh my rusty basic Rust knowledge
 - this is definitely not a bragging repo - I used chatGPT to improve my code (finding correct methods, never asking for correct logic) and sometimes I had to take a look at other solutions to understand how to tackle an issue
 - WARNING: a lot of goofy notes across the codebase
+- code organized by tasks, that is, each day has 2 tasks -> day 14 task 2 is found under `tasks/28/...`
